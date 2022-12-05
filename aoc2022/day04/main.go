@@ -2,14 +2,14 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
-	"strings"
 )
 
 func main() {
-	lines := getLines("input.txt")
+	lines := getData("input.txt")
 	// lines := getLines("test.txt")
 	count := 0
 	for _, line := range lines {
@@ -32,19 +32,17 @@ func main() {
 	fmt.Println("overlap: ", count)
 }
 
-func getLines(filename string) []string {
-	file, err := os.ReadFile(filename)
+func getData(filename string) []string {
+	file, err := os.Open(filename)
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer file.Close()
 
-	lines := strings.Split(string(file), "\n")
-	if err != nil {
-		log.Fatal(err)
-	}
-	length := len(lines)
-	if lines[length-1] == "" {
-		lines = lines[:length-1]
+	var lines []string
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
 	}
 	return lines
 }

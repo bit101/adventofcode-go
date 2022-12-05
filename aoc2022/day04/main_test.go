@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetLines(t *testing.T) {
-	lines := getLines("test.txt")
+	lines := getData("test.txt")
 	count := len(lines)
 	exp := 6
 
@@ -25,7 +25,7 @@ func TestParsePair(t *testing.T) {
 		{2, 6, 4, 8},
 	}
 
-	lines := getLines("test.txt")
+	lines := getData("test.txt")
 	for i, line := range lines {
 		aPair := parsePair(line)
 		first := aPair.first
@@ -48,7 +48,7 @@ func TestParsePair(t *testing.T) {
 func TestEnclosed(t *testing.T) {
 	exp := []bool{false, false, false, true, true, false}
 
-	lines := getLines("test.txt")
+	lines := getData("test.txt")
 	for i, line := range lines {
 		aPair := parsePair(line)
 		enclosed := isEnclosed(aPair)
@@ -62,7 +62,7 @@ func TestOverlap(t *testing.T) {
 
 	exp := []bool{false, false, true, true, true, true}
 
-	lines := getLines("test.txt")
+	lines := getData("test.txt")
 	for i, line := range lines {
 		aPair := parsePair(line)
 		enclosed := doOverlap(aPair)
